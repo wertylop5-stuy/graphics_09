@@ -211,4 +211,28 @@ void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 	}
 }
 
+int max_index(struct Matrix *m, int p1, int p2) {
+	if (m->m[1][p1] > m->m[1][p2]) return p1;
+	return p2;
+}
+
+void render_scanlines(Frame f, struct Matrix *m,
+		int p1, int p2, int p3) {
+	//determine top and bottom
+	int hi, lo, mid;	//index of top, bottom, middle
+	hi = max_index(m, p1, p2);
+	
+	float x0, x1;
+
+	//how much to increment x by
+	float 	d0 = (m->m[0][hi] - m->m[0][lo])/(m->m[1][hi] - m->m[1][lo]),
+		d1 = (m->m[0][hi] - m->m[0][mid])/(m->m[1][hi] - m->m[1][mid]);
+	int y;
+	for (y = m->m[1][lo]; y <= m->m[1][hi]; y++) {
+		//always go from x0 to x1
+		//x1 is always on the side dealing with the middle
+		
+	}
+}
+
 
