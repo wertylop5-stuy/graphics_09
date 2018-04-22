@@ -1,0 +1,37 @@
+[
+    {
+        "command": "cc -c -Wall include/draw.h /home/stanley/Documents/Github/graphics_09/draw.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/draw.c"
+    },
+    {
+        "command": "cc -c -Wall include/output.h /home/stanley/Documents/Github/graphics_09/output.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/output.c"
+    },
+    {
+        "command": "cc -c -Wall include/matrix.h /home/stanley/Documents/Github/graphics_09/matrix.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/matrix.c"
+    },
+    {
+        "command": "cc -c -Wall include/parser.h /home/stanley/Documents/Github/graphics_09/parser.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/parser.c"
+    },
+    {
+        "command": "cc -c -Wall include/shapes.h /home/stanley/Documents/Github/graphics_09/shapes.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/shapes.c"
+    },
+    {
+        "command": "cc -c -Wall include/rcs.h /home/stanley/Documents/Github/graphics_09/rcs.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/rcs.c"
+    },
+    {
+        "command": "cc -c -Wall include/draw.h include/output.h include/rcs.h /home/stanley/Documents/Github/graphics_09/main.c",
+        "directory": "/home/stanley/Documents/Github/graphics_09",
+        "file": "/home/stanley/Documents/Github/graphics_09/main.c"
+    }
+]

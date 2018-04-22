@@ -1,3 +1,6 @@
+//for qsort
+#define _GNU_SOURCE
+
 #include"include/draw.h"
 
 void pixel_color(struct Pixel *p, unsigned char r,
@@ -184,6 +187,8 @@ void find_norm(struct Matrix *m, int p1, int p2, int p3,
 void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 	int x;
 	float norm[3];
+	struct Pixel fill_color;
+	int r = 10, g = 34, b = 123;
 	for (x = 0; x < m->back; x+=3) {
 		find_norm(m, x, x+1, x+2, norm);
 		//backface culling: don't draw if polygon
@@ -207,31 +212,58 @@ void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 				m->m[0][x],
 				m->m[1][x]
 			);
+			
+
+			pixel_color(&fill_color, r, g, b);
+			r += 20;
+			g += 10;
+			b += 15;
+			r = r % 255;
+			g = g % 255;
+			b = b % 255;
+			//render_scanlines(f, m, p, x, x+1, x+2);
 		}
 	}
 }
 
-int max_index(struct Matrix *m, int p1, int p2) {
-	if (m->m[1][p1] > m->m[1][p2]) return p1;
-	return p2;
+//matrix should be a pointer to a struct Matrix
+int compare_matrix_indices(const void *p1, const void *p2, void *matrix) {
+	struct Matrix *m = (struct Matrix *)matrix;
+	return m->m[1][*((int *)p1)] - m->m[1][*((int *)p2)];
 }
 
-void render_scanlines(Frame f, struct Matrix *m,
+void render_scanlines(Frame f, struct Matrix *m, struct Pixel *p,
 		int p1, int p2, int p3) {
 	//determine top and bottom
 	int hi, lo, mid;	//index of top, bottom, middle
-	hi = max_index(m, p1, p2);
+	int sorted[] = {p1, p2, p3};
+	qsort_r(sorted, 3, sizeof(int), *compare_matrix_indices, m);
+	lo = sorted[0];
+	mid = sorted[1];
+	hi = sorted[2];
 	
-	float x0, x1;
+	float x0 = m->m[0][lo], x1 = m->m[0][lo];
 
-	//how much to increment x by
+	//how much to increment x by, d1 will change
 	float 	d0 = (m->m[0][hi] - m->m[0][lo])/(m->m[1][hi] - m->m[1][lo]),
-		d1 = (m->m[0][hi] - m->m[0][mid])/(m->m[1][hi] - m->m[1][mid]);
+		d1 = (m->m[0][mid] - m->m[0][lo])/(m->m[1][mid] - m->m[1][lo]);
 	int y;
+	printf("ylo: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][hi]);
 	for (y = m->m[1][lo]; y <= m->m[1][hi]; y++) {
+		printf("x0: %f, x1: %f, y: %d\n", x0, x1, y);
 		//always go from x0 to x1
 		//x1 is always on the side dealing with the middle
 		
+		//swap delta1 at midpoint
+		if (y == m->m[1][mid]) {
+			x1 =  m->m[0][mid];
+			d1 = (m->m[0][hi] - m->m[0][mid])/(m->m[1][hi] - m->m[1][mid]);
+		}
+		draw_line(f, p, (int)x0, y, (int)x1, y);
+		
+		if (m->m[1][hi] == m->m[1][mid]) break;
+		x0 += d0;
+		x1 += d1;
 	}
 }
 

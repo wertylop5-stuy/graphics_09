@@ -7,6 +7,7 @@
 #define DRAW_H
 
 #include<stdio.h>
+#include<stdlib.h>
 
 #include"dimen.h"
 #include"matrix.h"
@@ -39,7 +40,7 @@ void find_norm(struct Matrix *m, int p1, int p2, int p3,
 
 void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p);
 
-void render_scanlines(Frame f, struct Matrix *m,
+void render_scanlines(Frame f, struct Matrix *m, struct Pixel *p,
 		int p1, int p2, int p3);
 
 #endif
