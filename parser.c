@@ -166,6 +166,9 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 		else if (!strncmp(line, "pop", strlen(line)-1)) {
 			pop_rcs(s);
 		}
+		else if (!strncmp(line, "clear", strlen(line)-1)) {
+			memset(f, 0, sizeof(Frame));
+		}
 	}
 	
 	fclose(file);
