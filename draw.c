@@ -230,8 +230,8 @@ void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 //matrix should be a pointer to a struct Matrix
 int compare_matrix_indices(const void *p1, const void *p2, void *matrix) {
 	struct Matrix *m = (struct Matrix *)matrix;
-	printf("comparing: %f, %f\n", m->m[1][*((int *)(p1))], m->m[1][*((int *)(p2))]);
-	printf("round: %f\n", m->m[1][*((int *)(p1))] - m->m[1][*((int *)p2)]);
+	//printf("comparing: %f, %f\n", m->m[1][*((int *)(p1))], m->m[1][*((int *)(p2))]);
+	//printf("round: %f\n", m->m[1][*((int *)(p1))] - m->m[1][*((int *)p2)]);
 	float res = m->m[1][*((int *)p1)] - m->m[1][*((int *)p2)];
 	if (res < 0) return -1;
 	else if (res > 0) return 1;
@@ -254,9 +254,9 @@ void render_scanlines(Frame f, struct Matrix *m, struct Pixel *p,
 	float 	d0 = (m->m[0][hi] - m->m[0][lo])/(m->m[1][hi] - m->m[1][lo]),
 		d1 = (m->m[0][mid] - m->m[0][lo])/(m->m[1][mid] - m->m[1][lo]);
 	int y;
-	printf("ylo: %d, ymid: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][mid], (int)m->m[1][hi]);
+	//printf("ylo: %d, ymid: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][mid], (int)m->m[1][hi]);
 	for (y = (int)m->m[1][lo]; y <= (int)m->m[1][hi]; y++) {
-		printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
+		//printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
 		//always go from x0 to x1
 		//x1 is always on the side dealing with the middle
 		
@@ -267,7 +267,7 @@ void render_scanlines(Frame f, struct Matrix *m, struct Pixel *p,
 		if (y == (int)m->m[1][mid]) {
 			x1 =  m->m[0][mid];
 			d1 = (m->m[0][hi] - m->m[0][mid])/(m->m[1][hi] - m->m[1][mid]);
-			printf("swapped d1: %f\n", d1);
+			//printf("swapped d1: %f\n", d1);
 		}
 		
 		x0 += d0;
