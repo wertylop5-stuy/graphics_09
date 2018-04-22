@@ -1,4 +1,5 @@
 *.swp
+exec
 
 # Prerequisites
 *.d
