@@ -253,14 +253,20 @@ void render_scanlines(Frame f, struct Matrix *m, struct Pixel *p,
 	//how much to increment x by, d1 will change
 	float 	d0 = (m->m[0][hi] - m->m[0][lo])/(m->m[1][hi] - m->m[1][lo]),
 		d1 = (m->m[0][mid] - m->m[0][lo])/(m->m[1][mid] - m->m[1][lo]);
+	
+	if (m->m[1][mid] - m->m[1][lo] < 1) {
+		x1 = m->m[0][mid];
+		d1 = (m->m[0][hi] - m->m[0][mid])/(m->m[1][hi] - m->m[1][mid]);
+	}
+	
 	int y;
-	//printf("ylo: %d, ymid: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][mid], (int)m->m[1][hi]);
+	printf("ylo: %d, ymid: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][mid], (int)m->m[1][hi]);
 	for (y = (int)m->m[1][lo]; y <= (int)m->m[1][hi]; y++) {
-		//printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
+		printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
 		//always go from x0 to x1
 		//x1 is always on the side dealing with the middle
 		
-		if (y == (int)m->m[1][hi] && y == (int)m->m[1][mid]) break;
+		//if (y == (int)m->m[1][hi] && y == (int)m->m[1][mid]) break;
 		
 		draw_line(f, p, (int)x0, y, (int)x1, y);
 		//swap delta1 at midpoint
