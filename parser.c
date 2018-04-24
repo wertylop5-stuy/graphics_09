@@ -132,6 +132,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f, zbuffer b)
 			add_sphere(p, x, y, z, r, 8);
 			matrix_mult(peek(s), p);
 			draw_polygons(f, b, p, &pixel);
+			printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 			free_matrix(p);
 		}
 		else if (!strncmp(line, "box", strlen(line)-1)) {

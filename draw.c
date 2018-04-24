@@ -265,22 +265,24 @@ void render_scanlines(Frame f, zbuffer b, struct Matrix *m, struct Pixel *p,
 		
 		z1 = m->m[2][mid];
 		dz1 = (m->m[2][hi] - m->m[2][mid])/(m->m[1][hi] - m->m[1][mid]);
+		
+		if ((int)roundf(m->m[1][hi]) == (int)roundf(m->m[1][mid])) return;
 	}
 	
-	int y/*, counter*/;
+	int y;
 	printf("ylo: %d, ymid: %d, yhi: %d\n", (int)m->m[1][lo], (int)m->m[1][mid], (int)m->m[1][hi]);
 	for (y = (int)m->m[1][lo]; y <= (int)m->m[1][hi]; y++) {
-	//for (counter = lo; counter <= hi; counter++) {
-		//y = (int)m->m[1][counter];
-		printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
 		//always go from x0 to x1
 		//x1 is always on the side dealing with the middle
-		
+		//if (fabsf(d1) > 100) {
+			printf("x0: %f, x1: %f, y: %d, d0: %f, d1: %f\n", x0, x1, y, d0, d1);
+			printf("hi: %f, mid: %f\n", roundf(m->m[1][hi]), roundf(m->m[1][mid]));
+		//}
 		//if (y == (int)m->m[1][hi] && y == (int)m->m[1][mid]) break;
 		
 		draw_line(f, b, p,
-				(int)x0, y, z0/*m->m[2][counter]*/,
-				(int)x1, y, z1/*m->m[2][counter]*/);
+				(int)roundf(x0), y, z0,
+				(int)roundf(x1), y, z1);
 		//swap delta1 at midpoint
 		if (y == (int)m->m[1][mid]) {
 			x1 =  m->m[0][mid];
@@ -290,7 +292,8 @@ void render_scanlines(Frame f, zbuffer b, struct Matrix *m, struct Pixel *p,
 			z1 = m->m[2][mid];
 			dz1 = (m->m[2][hi] - m->m[2][mid])/
 				(m->m[1][hi] - m->m[1][mid]);
-
+			
+			if ((int)roundf(m->m[1][hi]) == (int)roundf(m->m[1][mid])) break;
 			//printf("swapped d1: %f\n", d1);
 		}
 		
