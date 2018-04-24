@@ -40,18 +40,7 @@ void draw_line(Frame grid, zbuffer buf, struct Pixel *p,
 		int x2, int y2, float z2) {
 	//make sure x1 y1 is the left point
 	if (x1 > x2) {
-		/*
-		int temp = x1;
-		x1 = x2;
-		x2 = temp;
-		*/
 		swap(&x1, &x2);
-		
-		/*
-		temp = y1;
-		y1 = y2;
-		y2 = temp;
-		*/
 		swap(&y1, &y2);
 		
 		float temp = z1;
@@ -70,17 +59,6 @@ void draw_line(Frame grid, zbuffer buf, struct Pixel *p,
 	
 	//octant 1
 	if (m >= 0 && m <= 1) {
-		/*
-		if (x1 > x2) {
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
-		}
-		*/
 		a = y2-y1;
 		b = -(x2-x1);
 		
@@ -104,18 +82,9 @@ void draw_line(Frame grid, zbuffer buf, struct Pixel *p,
 	//octant 2
 	else if (m > 1) {
 		if (y1 > y2) {
-			/*
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
-			*/
-			
 			swap(&x1, &x2);
 			swap(&y1, &y2);
+			
 			float temp = z1;
 			z1 = z2;
 			z2 = temp;
@@ -142,17 +111,6 @@ void draw_line(Frame grid, zbuffer buf, struct Pixel *p,
 	}
 	//octant 8
 	else if (m < 0 && m >= -1) {
-		/*
-		if (x1 > x2) {
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
-		}
-		*/
 		a = y2-y1;
 		b = -(x2-x1);
 		
@@ -176,18 +134,9 @@ void draw_line(Frame grid, zbuffer buf, struct Pixel *p,
 	//octant 7
 	else if (m < -1) {
 		if (y1 < y2) {
-			/*
-			int temp = x1;
-			x1 = x2;
-			x2 = temp;
-			
-			temp = y1;
-			y1 = y2;
-			y2 = temp;
-			*/
-			
 			swap(&x1, &x2);
 			swap(&y1, &y2);
+			
 			float temp = z1;
 			z1 = z2;
 			z2 = temp;
