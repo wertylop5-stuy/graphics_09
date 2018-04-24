@@ -10,6 +10,6 @@
 #include"rcs.h"
 
 //t is transform, p is polygon, e is edge
-void parse_instructions(char *filename, struct Rcs_stack *s, Frame f);
+void parse_instructions(char *filename, struct Rcs_stack *s, Frame f, zbuffer b);
 
 #endif

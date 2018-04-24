@@ -1,3 +1,5 @@
+#include<float.h>
+
 #include"include/draw.h"
 #include"include/output.h"
 #include"include/parser.h"
@@ -10,12 +12,13 @@ int main(int argc, char **argv) {
 	}
 	struct Rcs_stack *s = new_rcs_stack(4);
 	Frame f;
-	memset(f, 0, sizeof(f));
+	zbuffer buf;
+	clear(f, buf);
 	
 	struct Pixel p;
 	pixel_color(&p, 255, 235, 205);
 	
-	parse_instructions(argv[1], s, f);
+	parse_instructions(argv[1], s, f, buf);
 
 	/*
 	print_stack(s);

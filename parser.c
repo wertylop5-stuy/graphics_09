@@ -1,6 +1,6 @@
 #include"include/parser.h"
 
-void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
+void parse_instructions(char *filename, struct Rcs_stack *s, Frame f, zbuffer b) {
 	FILE *file = fopen(filename, "r");
 	if (!file) return;
 	
@@ -23,7 +23,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			push_edge(e, x1, y1, z1, x2, y2, z2);
 			matrix_mult(peek(s), e);
-			draw_lines(f, e, &pixel);
+			draw_lines(f, b, e, &pixel);
 			free_matrix(e);
 		}
 		else if (!strncmp(line, "scale", strlen(line)-1)) {
@@ -91,7 +91,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			make_circle(e, cx, cy, cz, r, 2*M_PI);
 			matrix_mult(peek(s), e);
-			draw_lines(f, e, &pixel);
+			draw_lines(f, b, e, &pixel);
 			free_matrix(e);
 		}
 		else if (!strncmp(line, "hermite", strlen(line)-1)) {
@@ -104,7 +104,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			make_hermite(e, x0, y0, x1, y1, rx0, ry0, rx1, ry1);
 			matrix_mult(peek(s), e);
-			draw_lines(f, e, &pixel);
+			draw_lines(f, b, e, &pixel);
 			free_matrix(e);
 		}
 		else if (!strncmp(line, "bezier", strlen(line)-1)) {
@@ -117,7 +117,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			make_bezier(e, x0, y0, x1, y1, x2, y2, x3, y3);
 			matrix_mult(peek(s), e);
-			draw_lines(f, e, &pixel);
+			draw_lines(f, b, e, &pixel);
 			free_matrix(e);
 		}
 		else if (!strncmp(line, "sphere", strlen(line)-1)) {
@@ -131,7 +131,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			//draw sphere then remove the matrix
 			add_sphere(p, x, y, z, r, 8);
 			matrix_mult(peek(s), p);
-			draw_polygons(f, p, &pixel);
+			draw_polygons(f, b, p, &pixel);
 			free_matrix(p);
 		}
 		else if (!strncmp(line, "box", strlen(line)-1)) {
@@ -144,7 +144,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			add_cube(p, x, y, z, w, h, d);
 			matrix_mult(peek(s), p);
-			draw_polygons(f, p, &pixel);
+			draw_polygons(f, b, p, &pixel);
 			free_matrix(p);
 		}
 		else if (!strncmp(line, "torus", strlen(line)-1)) {
@@ -157,7 +157,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			
 			add_torus(p, x, y, z, r1, r2, 30);
 			matrix_mult(peek(s), p);
-			draw_polygons(f, p, &pixel);
+			draw_polygons(f, b, p, &pixel);
 			free_matrix(p);
 		}
 		else if (!strncmp(line, "push", strlen(line)-1)) {
@@ -167,7 +167,7 @@ void parse_instructions(char *filename, struct Rcs_stack *s, Frame f) {
 			pop_rcs(s);
 		}
 		else if (!strncmp(line, "clear", strlen(line)-1)) {
-			memset(f, 0, sizeof(Frame));
+			clear(f, b);
 		}
 	}
 	
