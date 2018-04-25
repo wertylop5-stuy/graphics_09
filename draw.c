@@ -280,11 +280,12 @@ void render_scanlines(Frame f, zbuffer b, struct Matrix *m, struct Pixel *p,
 		//}
 		//if (y == (int)m->m[1][hi] && y == (int)m->m[1][mid]) break;
 		
-		draw_line(f, b, p,
+		/*draw_line(f, b, p,
 				(int)roundf(x0), y, z0,
-				(int)roundf(x1), y, z1);
+				(int)roundf(x1), y, z1);*/
 		//swap delta1 at midpoint
-		if (y == (int)m->m[1][mid]) {
+		//if (y == (int)m->m[1][mid]) {
+		if (fabsf(y - (int)m->m[1][mid]) < 1) {
 			x1 =  m->m[0][mid];
 			d1 = (m->m[0][hi] - m->m[0][mid])/
 				(m->m[1][hi] - m->m[1][mid]);
@@ -293,9 +294,13 @@ void render_scanlines(Frame f, zbuffer b, struct Matrix *m, struct Pixel *p,
 			dz1 = (m->m[2][hi] - m->m[2][mid])/
 				(m->m[1][hi] - m->m[1][mid]);
 			
-			if ((int)roundf(m->m[1][hi]) == (int)roundf(m->m[1][mid])) break;
+			//if ((int)roundf(m->m[1][hi]) == (int)roundf(m->m[1][mid])) break;
+			if (fabsf(m->m[1][hi] - m->m[1][mid]) < 1) break;
 			//printf("swapped d1: %f\n", d1);
 		}
+		draw_line(f, b, p,
+				(int)roundf(x0), y, z0,
+				(int)roundf(x1), y, z1);
 		
 		x0 += d0;
 		x1 += d1;

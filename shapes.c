@@ -401,7 +401,7 @@ void add_torus(struct Matrix *m, float cx, float cy, float cz,
 	int x;
 	
 	for (x = 0; x < res->back; x++) {
-		/*
+		
 		push_polygon(m,
 			res->m[0][x],
 			res->m[1][x],
@@ -424,7 +424,8 @@ void add_torus(struct Matrix *m, float cx, float cy, float cz,
 			res->m[1][(x+1)%res->back],
 			res->m[2][(x+1)%res->back]
 		);
-		*/
+		
+		/*
 		push_polygon(m,
 			res->m[0][(x+step_big+1)%res->back],
 			res->m[1][(x+step_big+1)%res->back],
@@ -447,6 +448,7 @@ void add_torus(struct Matrix *m, float cx, float cy, float cz,
 			res->m[1][x],
 			res->m[2][x]
 		);
+		*/
 	}
 	free_matrix(res);
 }
