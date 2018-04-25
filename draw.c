@@ -230,9 +230,6 @@ void draw_polygons(Frame f, zbuffer buf, struct Matrix *m, struct Pixel *p) {
 //matrix should be a pointer to a struct Matrix
 int compare_matrix_indices(const void *p1, const void *p2, void *matrix) {
 	struct Matrix *m = (struct Matrix *)matrix;
-	//printf("comparing: %f, %f\n", m->m[1][*((int *)(p1))],
-	//		m->m[1][*((int *)(p2))]);
-	//printf("round: %f\n", m->m[1][*((int *)(p1))] - m->m[1][*((int *)p2)]);
 	float res = m->m[1][*((int *)p1)] - m->m[1][*((int *)p2)];
 	if (res < 0) return -1;
 	else if (res > 0) return 1;
@@ -267,7 +264,7 @@ void render_scanlines(Frame f, zbuffer b, struct Matrix *m, struct Pixel *p,
 		z1 = m->m[2][mid];
 		dz1 = (m->m[2][hi] - m->m[2][mid])/(m->m[1][hi] - m->m[1][mid]);
 		
-		if ((int)roundf(m->m[1][hi]) == (int)roundf(m->m[1][mid])) return;
+		if (fabsf(m->m[1][hi] - m->m[1][mid]) < 1) return;
 	}
 	
 	int y;

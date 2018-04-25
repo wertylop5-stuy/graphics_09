@@ -1,0 +1,60 @@
+#body
+move
+250 250 0
+rotate
+x 20
+rotate
+y 20
+box
+-80 -20 0 20 90 140
+box
+100 -20 30 20 90 140
+box
+-80 -20 40 200 90 40
+box
+-80 -20 -100 200 90 40
+#wheels
+push
+move
+-40 -150 0
+rotate
+x 80
+torus
+0 0 0 10 30
+pop
+push
+move
+-70 -150 -100
+rotate
+x 80
+torus
+0 0 0 10 30
+#handles
+pop
+push
+move
+100 200 0
+rotate
+z -30
+box
+120 0 0 10 200 30
+pop
+push
+move
+100 200 -100
+rotate
+z -30
+box
+120 0 0 10 200 30
+#ball
+pop
+push
+move
+-20 -30 -30
+sphere
+0 0 0 30
+sphere
+80 0 0 30
+display
+save
+wheelbarrow.png
